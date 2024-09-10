@@ -1,0 +1,42 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    ports:
+      - "5432:5432"
+    env_file:
+      - ../backend/.env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  django:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: django-container
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+    volumes:
+      - ../backend:/app
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ../frontend/src:/app/src
+    ports:
+      - "5173:5173"
+    env_file: ../frontend/.env
+    container_name: frontend-container
+
+volumes:
+  postgres_data:
