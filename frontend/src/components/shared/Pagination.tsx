@@ -17,7 +17,7 @@ interface PaginationProps {
   page: number;
 }
 
-const ONPAGE: number = parseInt(process.env.REACT_APP_ON_PAGE || "25", 10);
+const ONPAGE: number = parseInt(process.env.REACT_APP_ON_PAGE || "10", 10);
 
 
 

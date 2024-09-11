@@ -112,8 +112,8 @@ const CommentSingleCard = ({ comment }: ICommentCardProps) => {
                 {preview}...
               </a>
             )}
-            <p
-              className="pt-4"
+            <div
+              className="comment-content pt-4"
               dangerouslySetInnerHTML={{ __html: comment.text }}
             />
             <div className="flex justify-end">
